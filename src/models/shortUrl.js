@@ -1,0 +1,2 @@
+
+const ShortUrl = sequelize.define('')
