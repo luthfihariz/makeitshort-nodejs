@@ -14,7 +14,7 @@ models.user.hasMany(models.shortUrl, {
 })
 models.shortUrl.belongsTo(models.user)
 
-sequalize.sync({alter:true})
+sequalize.sync()
 
 const app = express()
 const port = process.env.PORT || 3000
