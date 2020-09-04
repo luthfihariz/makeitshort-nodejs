@@ -2,6 +2,7 @@ const express = require('express')
 const shortUrlRouter = require('./routers/shortUrl')
 const userRouter = require('./routers/user')
 const sequalize = require('./db/connection')
+const { model } = require('./db/connection')
 const models = {
     shortUrl: require('./models/shortUrl'),
     user: require('./models/user')
@@ -22,6 +23,7 @@ const port = process.env.PORT || 3000
 app.use(express.json())
 app.use(shortUrlRouter)
 app.use(userRouter)
+
 
 app.listen(port,() => {
     console.log('Server running at', port)
