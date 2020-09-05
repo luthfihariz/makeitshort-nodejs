@@ -14,7 +14,7 @@ router.post('/api/user', async (req, res) => {
 router.post('/api/user/session', async (req, res) => {
     try {
         const user = await User.findUserByCredentials(req.body.email, req.body.password)
-        const token = jwt.sign({id:user.id,name:user.name}, "sosecretthatyouwillneverknowaboutit")
+        const token = jwt.sign({id:user.id,name:user.name}, process.env.JWT_SECRET_KEY)
         res.send({token})
     } catch (err) {
         res.status(400).send(err)

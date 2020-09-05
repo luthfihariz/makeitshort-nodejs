@@ -1,11 +1,14 @@
+require('dotenv').config()
+
 const express = require('express')
 const shortUrlRouter = require('./routers/shortUrl')
 const userRouter = require('./routers/user')
 const sequalize = require('./db/connection')
-const { model } = require('./db/connection')
+
 const models = {
     shortUrl: require('./models/shortUrl'),
-    user: require('./models/user')
+    user: require('./models/user'),
+    alias: require('./models/alias')
 }
 
 models.user.hasMany(models.shortUrl, {
@@ -14,6 +17,9 @@ models.user.hasMany(models.shortUrl, {
     }
 })
 models.shortUrl.belongsTo(models.user)
+models.alias.belongsTo(models.shortUrl)
+models.shortUrl.hasMany(models.alias)
+
 
 sequalize.sync()
 

@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize')
 const sequalize = require('../db/connection')
-const ShortUrl = require('./shortUrl')
 const bcrypt = require('bcryptjs')
 
 const User = sequalize.define('user', {
@@ -51,15 +50,4 @@ User.findUserByCredentials = async (email, password) => {
     return user
 }
 
-User.getUserIdFromToken = (token) => {
-    console.log(token)
-    jwt.verify(token, 'sosecretthatyouwillneverknowaboutit', function(err, decoded){
-        if(err){
-            console.log(err)
-            return
-        }
-        console.log(decoded.user)
-        return decoded
-    })
-}
 module.exports = User

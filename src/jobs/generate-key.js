@@ -1,11 +1,11 @@
+require('dotenv').config()
 const randomstring = require('randomstring')
 const Key = require('../models/key')
-const fs = require('fs')
 const bases = require('bases')
 
 const generate = async () => {
     try {
-        const keysGenerated = await generateKeys(1000000)
+        const keysGenerated = await generateKeys(100000)
         const dbRows = Array.from(keysGenerated).map((value) => {
             return {key : value}
         })
@@ -38,56 +38,6 @@ const getLatestId = async () => {
     } catch(err) {
         return 0
     }
-}
-
-const generateBase36KeyBatch1 = () => {
-    var set = new Set()
-    const maxNumberOfStrings = Math.pow(12, 6)
-    while(set.size < maxNumberOfStrings) {
-        const randString = randomstring.generate({
-            length: 6,
-            charset: 'abcdefghijkl',
-            capitalization: 'lowercase'
-        })
-        set.add(randString)
-    }
-    return set
-}
-
-
-const generateBase36KeyBatch2 = () => {
-    var set = new Set()
-    const maxNumberOfStrings = Math.pow(12, 6)
-    while(set.size < maxNumberOfStrings) {
-        const randString = randomstring.generate({
-            length: 6,
-            charset: 'mnopqrstuvwx',
-            capitalization: 'lowercase'
-        })
-        set.add(randString)
-    }
-    return set
-}
-
-
-const generateBase36KeyBatch3 = () => {
-    var set = new Set()
-    const maxNumberOfStrings = Math.pow(12, 6)
-    while(set.size < maxNumberOfStrings) {
-        const randString = randomstring.generate({
-            length: 6,
-            charset: 'yz1234567890',
-            capitalization: 'lowercase'
-        })
-        set.add(randString)
-    }
-    return set
-}
-
-const writeToFile = (string) => {
-    fs.appendFile('generated-key.txt', string, function(err){
-        if(err) return console.log("Error writing", string)
-    })
 }
 
 generate()
